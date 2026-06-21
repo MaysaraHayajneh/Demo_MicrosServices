@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/CustomerService/">
+    <Project Path="CustomerService/Customer.Application/Customer.Application.csproj" />
+    <Project Path="CustomerService/Customer.Domain/Customer.Domain.csproj" />
+    <Project Path="CustomerService/Customer.Infustructure/Customer.Infustructure.csproj" />
+    <Project Path="CustomerService/Customer.Presentation/Customer.Presentation.csproj" />
+    <Project Path="CustomerService/CustomerMicroservice/CustomerMicroservice.csproj" />
+  </Folder>
+  <Folder Name="/OrderService/">
+    <Project Path="OrderService/Order.Application/Order.Application.csproj" />
+    <Project Path="OrderService/Order.Domain/Order.Domain.csproj" />
+    <Project Path="OrderService/Order.Infustructure/Order.Infustructure.csproj" />
+    <Project Path="OrderService/Order.Presentation/Order.Presentation.csproj" />
+    <Project Path="OrderService/OrderMicroservice/OrderMicroservice.csproj" />
+  </Folder>
+  <Folder Name="/ProductService/">
+    <Project Path="ProductService/Application/Application.csproj" />
+    <Project Path="ProductService/Domain/Domain.csproj" />
+    <Project Path="ProductService/Infustructure/Infustructure.csproj" />
+    <Project Path="ProductService/Presentation/Presentation.csproj" />
+    <Project Path="ProductService/ProductMicroservice/ProductMicroservice.csproj" />
+  </Folder>
+  <Project Path="Gateway.WebApi/Gateway.WebApi.csproj" Id="aaab4408-c6b7-4224-a563-f0ed64a0e11e" />
+</Solution>
