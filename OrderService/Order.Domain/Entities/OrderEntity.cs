@@ -22,7 +22,7 @@ namespace Order.Domain.Entities
 
 		public void AddItem(int productId, string productName, decimal price, int quantity)
 		{
-			if (quantity <= 0) throw new Exception("Quantity must be greater than 0");
+			if (quantity <= 0) throw new Exception("Quantity must be greater than 0"); 
 
 			OrderItems.Add(new OrderItemsEntity(productId, productName, quantity, price));
 
