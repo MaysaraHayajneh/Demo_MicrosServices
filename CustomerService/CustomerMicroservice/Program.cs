@@ -1,7 +1,7 @@
 using Customer.Application;
+using Customer.Infustructure;
 using Customer.Presentation;
 using CustomerMicroservice.Filters;
-using Infustructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +13,19 @@ builder.Services.AddControllers((opt) =>
 
 }).AddApplicationPart(typeof(IPresentationAssemply).Assembly);
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
+var logger = LoggerFactory.Create(x => x.AddConsole())
+    .CreateLogger("Startup");
+
+logger.LogInformation("ENVvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv: {env}", builder.Environment.EnvironmentName);
+
+
+var cs = builder.Configuration.GetConnectionString("DefaultConnection");
+
+logger.LogInformation("ConnectionString loaded: {exists}", !string.IsNullOrEmpty(cs));
+logger.LogInformation("ConnectionString loaded: {exists}", cs);
 
 builder.Services
 	.AddInfustructreServices(builder.Configuration)

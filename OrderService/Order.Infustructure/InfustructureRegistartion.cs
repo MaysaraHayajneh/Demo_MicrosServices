@@ -4,14 +4,16 @@ using Order.Infustructure.Persistence;
 
 namespace Order.Infustructure
 {
-	public static class InfustructureRegistartion
-	{
-		public static IServiceCollection AddInfustructreServices(this IServiceCollection services, IConfiguration configuration)
-		{
-			DependencyInjection.RegisterPersistence(services, configuration.GetConnectionString("DefaultConnection")!);
+    public static class InfustructureRegistartion
+    {
+        public static IServiceCollection AddInfustructreServices(this IServiceCollection services, IConfiguration configuration)
+        {
+            DependencyInjection.RegisterPersistence(services, configuration.GetConnectionString("DefaultConnection")!);
 
-			return services;
-		}
-	}
+            DependencyInjection.RegisterMessagingServices(services);
+
+            return services;
+        }
+    }
 }
 

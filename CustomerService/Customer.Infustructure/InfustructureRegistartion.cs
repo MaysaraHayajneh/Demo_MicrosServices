@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infustructure
+namespace Customer.Infustructure
 {
 	public static class InfustructureRegistartion
 	{

@@ -4,6 +4,7 @@ using Order.Infustructure;
 using Order.Infustructure.Clients;
 using Order.Presentation;
 using OrderMicroservice.Filters;
+using Shared.Messaging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,14 +12,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers((opt) =>
 {
-	opt.Filters.Add<ValidationFilter>();
+    opt.Filters.Add<ValidationFilter>();
 
 }).AddApplicationPart(typeof(IPresentationAssemply).Assembly);
 
-
 builder.Services
-	.AddInfustructreServices(builder.Configuration)
-	.AddApplicationServices();
+    .AddInfustructreServices(builder.Configuration)
+    .AddApplicationServices()
+    .AddRabbitMqMessaging(builder.Configuration);
 
 
 builder.Services.AddHttpClient();
@@ -32,9 +33,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.MapOpenApi();
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

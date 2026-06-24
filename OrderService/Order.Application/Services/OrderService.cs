@@ -1,10 +1,12 @@
 ﻿using Mapster;
 using Order.Application.Contracts.Clients;
 using Order.Application.Contracts.Markers;
+using Order.Application.Contracts.Messaging;
 using Order.Application.Contracts.Persistence;
 using Order.Application.Contracts.Services;
 using Order.Application.DTOs.Orders;
 using Order.Domain.Entities;
+using SharedContracts.Messages;
 
 namespace Order.Application.Services
 {
@@ -14,16 +16,18 @@ namespace Order.Application.Services
 		private readonly IUnitOfWork unitOfWork;
 		private readonly ICustomerServiceClient customerServiceClient;
 		private readonly IProductServiceClient productServiceClient;
+        private readonly IEventPublisher _eventPublisher;
 
-		public OrderService(IGenericRepository<OrderEntity> productRepos,
+        public OrderService(IGenericRepository<OrderEntity> productRepos,
 			IUnitOfWork unitOfWork, ICustomerServiceClient customerServiceClient
-			, IProductServiceClient productServiceClient)
+			, IProductServiceClient productServiceClient, IEventPublisher eventPublisher)
 		{
 			this.orderRepos = productRepos;
 			this.unitOfWork = unitOfWork;
 			this.customerServiceClient = customerServiceClient;
 			this.productServiceClient = productServiceClient;
-		}
+            _eventPublisher = eventPublisher;
+        }
 		public async Task Create(CreateOrderDTO dto)
 		{
 			ArgumentNullException.ThrowIfNull(dto);
@@ -55,8 +59,12 @@ namespace Order.Application.Services
 				);
 			}
 			await orderRepos.Create(order);
-			await unitOfWork.CommitAsync();
-		}
+
+            await _eventPublisher.PublishOrderCreated(new OrderCreatedEvent(dto.OrderItems.Select(oi => new ProductDetails { ProductId = oi.ProductId, Quantity = oi.Quantity }	).ToList()));
+        
+            await unitOfWork.CommitAsync();
+
+        }
 		public async Task Delete(int Id)
 		{
 			var product = await orderRepos.GetById(Id);

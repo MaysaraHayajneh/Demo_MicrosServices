@@ -22,4 +22,5 @@
   </Folder>
   <Project Path="Gateway.WebApi/Gateway.WebApi.csproj" Id="aaab4408-c6b7-4224-a563-f0ed64a0e11e" />
   <Project Path="Shared.Messaging/Shared.Messaging.csproj" Id="4283c4e5-db14-48ae-8781-6192055118a6" />
+  <Project Path="SharedContracts/SharedContracts.csproj" Id="e0fcffc3-35d1-45d3-b62e-deccc69be919" />
 </Solution>
